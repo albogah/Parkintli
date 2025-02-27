@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+
+     <head>
+          <meta charset="UTF-8">
+          <meta http-equiv="X-UA-Compatible" content="IE=edge">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Parkintli</title>
+          <link rel="stylesheet" type="text/css" href="./styles/style.css">
+          <link rel="stylesheet" type="text/css" href="./styles/navbar.css">
+          <link rel="preconnect" href="https://fonts.googleapis.com">
+          <link rel="shortcut icon" href="./images/logo.png" type="image/x-icon">
+          <link rel="stylesheet" href="./styles/responsive.css">
+     </head>
+
+     <body>
+
+         <!--? Navbar Start -->
+<header>
+     <nav id="navbar">
+         <div class="nav-logo">
+             <div class="logo">
+                 <a href="index.html">
+                     <div>
+                         <img src="./images/logo.png" alt="">
+                     </div>
+                     <div id="logo-txt">Parkintli</div>
+                 </a>
+             </div>
+         </div>
+         <div class="nav-link">
+             <ul>
+                 <a href="#home">
+                     <li>Home</li>
+                 </a>
+                 <a href="#services">
+                     <li>Location</li>
+                 </a>
+                 <a href="#about">
+                     <li>About Us</li>
+                 </a>
+                 <a href="#ContactUs">
+                     <li>Contact Us</li>
+                 </a>
+                 <a href="signin.html"> <!-- Link to the Sign-In Page -->
+                    <li>Sign In</li>
+                </a>
+             </ul>
+ 
+             <!-- Search Section -->
+             <div class="search-container">
+               <input type="text" id="searchInput" placeholder="ابحث عن الموقع..." />
+               <button id="searchButton">بحث</button>
+           </div>
+           
+             <!-- Search Section -->
+ 
+         </div>
+         <div class="nav-right-login">
+             <img src="./images/trucGif.gif" alt="">
+         </div>
+     </nav>
+     <div class="cycle">
+         <img src="./images/cycle.gif" alt="">
+     </div>
+ </header>
+ <!--? Navbar End -->
+ 
+ <!-- Location Sections -->
+ <section id="مجمع الملك فيصل الطبي">
+     <!-- Content for King Faisal Hospital -->
+ </section>
+ 
+ <section id="جامعة الطائف">
+     <!-- Content for Taif University -->
+ </section>
+ 
+ <section id="مطار الطائف الدولي">
+     <!-- Content for Taif Airport -->
+ </section>
+ 
+ <section id="متحف قصر شبرا الاقليمي">
+     <!-- Content for Shubra Palace Museum -->
+ </section>
+ 
+
+     
+
+          <!--? Main-Section Start -->
+          <main id="home">
+               <section id="container">
+                    <seciton id="home-left">
+                         <!--  -->
+                         <div class="welcome">
+                              <div><Span>موقفك </Span> الذكي</div>
+                              <div>
+                                   بضغطة زر
+                              </div>
+                         </div>
+                         <div>
+                              <p>
+                                   !اكتشف المواقف المتاحة فورًا، بدون عناء البحث
+                              </p>
+                         </div>
+                         <div class="">
+                              <div>
+                                   <img src="" alt="">
+                              </div>
+                              <div>
+                                   <img src="" alt="">
+                              </div>
+                         </div>
+
+
+                    </seciton>
+                    <seciton id="home-right">
+                         <!--  -->
+                         <div class="image-bg"></div>
+                         <div class="jeep-img">
+                              <img src="./images/Parking.png" alt="">
+                         </div>
+                    </seciton>
+               </section>
+
+          </main>
+          <!--? Main-Section End -->
+
+        <!--? Services Section Start -->
+        <section id="services">
+          <div class="services-head">
+               <h1>الموقع</h1>
+               <h1> مجمع الملك فيصل الطبي</h1>
+          </div>
+          <div id="services-main">
+               <div class="form-container">
+                    <div class="form-enhancer"><img src="./images/mmmmessage.webp" alt=""> </div>
+     
+                    <!-- New Parking Status Section -->
+                    <div class="parking-status">
+                         <h2>🚗 <span class="parking-title">المواقف</span></h2>
+                         <div class="parking-info">
+                             <p><strong>🟢 المواقف المتاحة:</strong> <span id="available-parking-king">--</span></p>
+                             <p><strong>🔴 المواقف المشغولة:</strong> <span id="unavailable-parking-king">--</span></p>
+                             <p><strong>⚪ إجمالي المواقف:</strong> <span id="total-parking-king">--</span></p>
+                         </div>
+                     </div>
+     
+               </div>
+               <div class="arrow-of-services">
+                    <div class="arrow-services">
+                         <img src="./images/red-arrow.webp" alt="">
+                    </div>
+               </div>
+               <div class="parking-gif">
+                    <img src="./images/Fisal_hosbitel.jpg" alt="">
+                    <div>
+                         <button onclick="window.location.href='https://maps.app.goo.gl/3pVVgDmisHNq7s3c6'">اذهب إلى الخريطة</button>
+                     </div>
+               </div>
+          </div>
+     </section>
+     
+     <script>
+        const locations1 = ["king_faisal"];
+     
+     function updateParkingStatus(location, availableId, totalId, unavailableId) {
+         fetch(`http://127.0.0.1:5000/parking-status?location=${location}`)
+             .then(response => response.json())
+             .then(data => {
+                 document.getElementById(availableId).innerText = data.available_parking;
+                 document.getElementById(totalId).innerText = data.total_parking;
+                 document.getElementById(unavailableId).innerText = data.unavailable_parking;
+             })
+             .catch(error => console.error(`Error fetching parking data for ${location}:`, error));
+     }
+     
+     // Update all locations every 5 seconds
+     setInterval(() => {
+         updateParkingStatus('king_faisal', 'available-parking-king', 'total-parking-king', 'unavailable-parking-king');
+        
+     }, 5000);
+     
+
+ </script>
+ 
+ <!--? Services (((1))) Section end -->
+ 
+
+
+
+ 
+        <!--? Services (((2))) Section Start -->
+<section id="services">
+     <div class="services-head">
+          <h1>الموقع</h1>
+          <h1>جامعة الطائف</h1>
+     </div>
+     <div id="services-main">
+          <div class="form-container">
+               <div class="form-enhancer"><img src="./images/mmmmessage.webp" alt=""> </div>
+
+               <!-- New Parking Status Section -->
+               <div class="parking-status">
+                    <h2>🚗 <span class="parking-title">المواقف</span></h2>
+                    <div class="parking-info">
+                        <p><strong>🟢 المواقف المتاحة:</strong> <span id="available-parking-taif">--</span></p>
+                        <p><strong>🔴 المواقف المشغولة:</strong> <span id="unavailable-parking-taif">--</span></p>
+                        <p><strong>⚪ إجمالي المواقف:</strong> <span id="total-parking-taif">--</span></p>
+                    </div>
+                </div>
+
+          </div>
+          <div class="arrow-of-services">
+               <div class="arrow-services">
+                    <img src="./images/red-arrow.webp" alt="">
+               </div>
+          </div>
+          <div class="parking-gif">
+               <img src="./images/taif uni.jpg" alt="">
+               <div>
+                    <button onclick="window.location.href='https://maps.app.goo.gl/wKJ78E8HsscX4xdB6'">اذهب إلى الخريطة</button>
+                </div>
+          </div>
+     </div>
+</section>
+
+<script>
+   const locations2 = ["taif_university"];
+
+function updateParkingStatus(location, availableId, totalId, unavailableId) {
+    fetch(`http://127.0.0.1:5000/parking-status?location=${location}`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById(availableId).innerText = data.available_parking;
+            document.getElementById(totalId).innerText = data.total_parking;
+            document.getElementById(unavailableId).innerText = data.unavailable_parking;
+        })
+        .catch(error => console.error(`Error fetching parking data for ${location}:`, error));
+}
+
+// Update all locations every 5 seconds
+setInterval(() => {
+    
+    updateParkingStatus('taif_university', 'available-parking-taif', 'total-parking-taif', 'unavailable-parking-taif');
+    
+}, 5000);
+
+ </script>
+ <!--? Services (((2))) Section End -->
+
+
+
+  <!--? Services (((3))) Section start -->
+
+ <section id="services">
+     <div class="services-head">
+          <h1>الموقع</h1>
+          <h1>مطار الطائف الدولي </h1>
+     </div>
+     <div id="services-main">
+          <div class="form-container">
+               <div class="form-enhancer"><img src="./images/mmmmessage.webp" alt=""> </div>
+
+               <!-- New Parking Status Section -->
+               <div class="parking-status">
+                    <h2>🚗 <span class="parking-title">المواقف</span></h2>
+                    <div class="parking-info">
+                        <p><strong>🟢 المواقف المتاحة:</strong> <span id="available-parking-airport">--</span></p>
+                        <p><strong>🔴 المواقف المشغولة:</strong> <span id="unavailable-parking-airport">--</span></p>
+                        <p><strong>⚪ إجمالي المواقف:</strong> <span id="total-parking-airport">--</span></p>
+                    </div>
+                </div>
+
+          </div>
+          <div class="arrow-of-services">
+               <div class="arrow-services">
+                    <img src="./images/red-arrow.webp" alt="">
+               </div>
+          </div>
+          <div class="parking-gif">
+               <img src="./images/taif matar.png" alt="">
+               <div>
+                    <button onclick="window.location.href='https://maps.app.goo.gl/EPPhCkRYwU5GZpAE7'">اذهب إلى الخريطة</button>
+                </div>
+          </div>
+     </div>
+</section>
+
+<script>
+   const locations3 = ["taif_airport"];
+
+function updateParkingStatus(location, availableId, totalId, unavailableId) {
+    fetch(`http://127.0.0.1:5000/parking-status?location=${location}`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById(availableId).innerText = data.available_parking;
+            document.getElementById(totalId).innerText = data.total_parking;
+            document.getElementById(unavailableId).innerText = data.unavailable_parking;
+        })
+        .catch(error => console.error(`Error fetching parking data for ${location}:`, error));
+}
+
+// Update all locations every 5 seconds
+setInterval(() => {
+   
+    updateParkingStatus('taif_airport', 'available-parking-airport', 'total-parking-airport', 'unavailable-parking-airport');
+    
+}, 5000);
+
+ </script>
+
+  <!--? Services (((3))) Section end -->
+
+
+
+  <!--? Services (((4))) Section start -->
+
+<section id="services">
+     <div class="services-head">
+          <h1>الموقع</h1>
+          <h1> متحف قصر شبرا الاقليمي</h1>
+     </div>
+     <div id="services-main">
+          <div class="form-container">
+               <div class="form-enhancer"><img src="./images/mmmmessage.webp" alt=""> </div>
+
+               <!-- New Parking Status Section -->
+               <div class="parking-status">
+                    <h2>🚗 <span class="parking-title">المواقف</span></h2>
+                    <div class="parking-info">
+                        <p><strong>🟢 المواقف المتاحة:</strong> <span id="available-parking-shubra">--</span></p>
+                        <p><strong>🔴 المواقف المشغولة:</strong> <span id="unavailable-parking-shubra">--</span></p>
+                        <p><strong>⚪ إجمالي المواقف:</strong> <span id="total-parking-shubra">--</span></p>
+                    </div>
+                </div>
+
+          </div>
+          <div class="arrow-of-services">
+               <div class="arrow-services">
+                    <img src="./images/red-arrow.webp" alt="">
+               </div>
+          </div>
+          <div class="parking-gif">
+               <img src="./images/ksr-shbra-2.jpg" alt="">
+               <div>
+                    <button onclick="window.location.href='https://maps.app.goo.gl/yZCCp7nRddRfF4uh9'">اذهب إلى الخريطة</button>
+                </div>
+          </div>
+     </div>
+</section>
+
+<script>
+   const locations4 = ["shubra_palace_museum"];
+
+function updateParkingStatus(location, availableId, totalId, unavailableId) {
+    fetch(`http://127.0.0.1:5000/parking-status?location=${location}`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById(availableId).innerText = data.available_parking;
+            document.getElementById(totalId).innerText = data.total_parking;
+            document.getElementById(unavailableId).innerText = data.unavailable_parking;
+        })
+        .catch(error => console.error(`Error fetching parking data for ${location}:`, error));
+}
+
+// Update all locations every 5 seconds
+setInterval(() => {
+   
+    updateParkingStatus('shubra_palace_museum', 'available-parking-shubra', 'total-parking-shubra', 'unavailable-parking-shubra');
+}, 5000);
+
+ </script>
+
+  <!--? Services (((4))) Section end -->
+
+
+
+
+ 
+               <!--  
+               <section id="parking">
+                    <div class="overlay-searching">
+                         <div class="loader-searching" id="loader-searching">
+                              <div>
+                                   <img src="./images/animated-car-image-0252.gif" alt="">
+                              </div>
+                         </div>
+                    </div>
+                    <div id="floor">
+                         <div id="lane1" class="lane">
+                              <div class="slot" id="slot-1">
+                                   <img src="./images/Bike.png" alt="">
+                              </div>
+                              <div class="slot" id="slot-2">
+                                   <img src="./images/Bike.png" alt="">
+                              </div>
+                              <div class="slot" id="slot-3">
+                                   <img src="./images/Bike.png" alt="">
+                              </div>
+                              <div class="slot" id="slot-4">
+                                   <img src="./images/Bike.png" alt="">
+                              </div>
+                              <div class="slot" id="slot-5">
+                                   <img src="./images/Bike.png" alt="">
+                              </div>
+
+                         </div>
+                         <div id="lane2" class="lane">
+                              <div class="slot" id="slot-1">
+                                   <img src="./images/Jeep.png" alt="">
+                              </div>
+                              <div class="slot" id="slot-2">
+                                   <img src="./images/Jeep.png" alt="">
+                              </div>
+                              <div class="slot" id="slot-3">
+                                   <img src="./images/Jeep.png" alt="">
+                              </div>
+                              <div class="slot" id="slot-4">
+                                   <img src="./images/Jeep.png" alt="">
+                              </div>
+                              <div class="slot" id="slot-5">
+                                   <img src="./images/Jeep.png" alt="">
+                              </div>
+
+                         </div>
+                         <div id="lane3" class="lane">
+                              <div class="slot" id="slot-1">
+                                   <img src="./images/Car.png" alt="">
+
+                              </div>
+                              <div class="slot" id="slot-2">
+                                   <img src="./images/Car.png" alt="">
+
+                              </div>
+                              <div class="slot" id="slot-3">
+                                   <img src="./images/Car.png" alt="">
+
+                              </div>
+                              <div class="slot" id="slot-4">
+                                   <img src="./images/Car.png" alt="">
+
+                              </div>
+                              <div class="slot" id="slot-5">
+                                   <img src="./images/Car.png" alt="">
+
+                              </div>
+
+                         </div>
+                         <div id="lane4" class="lane">
+                              <div class="slot" id="slot-1">
+                                   <img src="./images/Bus.png" alt="">
+                              </div>
+                              <div class="slot" id="slot-2">
+                                   <img src="./images/Bus.png" alt="">
+                              </div>
+                              <div class="slot" id="slot-3">
+                                   <img src="./images/Bus.png" alt="">
+                              </div>
+                              <div class="slot" id="slot-4">
+                                   <img src="./images/Bus.png" alt="">
+                              </div>
+                              <div class="slot" id="slot-5">
+                                   <img src="./images/Bus.png" alt="">
+                              </div>
+
+                         </div>
+                         <div id="lane5" class="lane">
+                              <div class="slot" id="slot-1">
+                                   <img src="./images/Truck.png" alt="">
+                              </div>
+                              <div class="slot" id="slot-2">
+                                   <img src="./images/Truck.png" alt="">
+                              </div>
+                              <div class="slot" id="slot-3">
+                                   <img src="./images/Truck.png" alt="">
+                              </div>
+                              <div class="slot" id="slot-4">
+                                   <img src="./images/Truck.png" alt="">
+                              </div>
+                              <div class="slot" id="slot-5">
+                                   <img src="./images/Truck.png" alt="">
+                              </div>
+
+                         </div>
+                    </div>
+                    <div class="parking-recipt">
+
+                         <div class="recipt-container">
+                              <h1>--Parking Receipt--</h1>
+                              <div class="recipt-date">
+                                   <div class="recipt">
+                                        Receipt no: <span> --</span>
+                                   </div>
+                                   <div class="date">
+                                        Date: <span> --</span>
+                                   </div>
+                              </div>
+                              <div class="name">
+                                   Name: <span> --</span>
+                              </div>
+
+                              <div class="reg_num">
+                                   Reg no: <span>--</span>
+                              </div>
+
+                              <div class="type">
+                                   Vehicle type: <span> --</span>
+                              </div>
+
+                              <div class="floor-slot">
+                                   <div class="floor">
+                                        Floor no: <span>--</span>
+                                   </div>
+                                   <span>|</span>
+                                   <div class="Lane">
+                                        Lane no: <span>--</span>
+                                   </div>
+                                   <span>|</span>
+                                   <div class="Slot">
+                                        Slot no: <span> --</span>
+                                   </div>
+
+                              </div>
+                              <div class="totalPrice">
+                                   Total price: <span> --</span>
+                              </div>
+                              <div class="promo-code">
+                                   <div class="promo">
+                                        <input type="text" placeholder="Enter Coupon code">
+                                   </div>
+                                   <div class="apply_promo">
+                                        <button>Apply Promo</button>
+                                   </div>
+                              </div>
+
+                              <div class="pay">
+                                   <button>Pay <span></span></button>
+                              </div>
+
+                              <div id="paid">
+                                   <img src="./images/paid.png" alt="">
+                              </div>
+                         </div>
+
+                    </div>
+               </section>
+
+          </section> -->
+          <!--? Servies Section End -->
+
+          <!--? About Section Start -->
+          <section id="about">
+               <div class="about-head">
+                    <p>📌 من نحن</p>
+                    <p>🚗 نظام الذكاء الاصطناعي لإدارة مواقف السيارات</p>
+               </div>
+               <div class="about-container1">
+                    <div class="about-left">
+                         <img src="./images/AI park2.jpg" alt="">
+                    </div>
+                    <div class="about-right">
+                         <div>
+                              <h1>📌 من نحن</h1>
+                              
+                              <h1> نظام باركنتلي هو نظام ذكي متكامل لإدارة مواقف السيارات
+                                   يعتمد على تقنيات الذكاء الاصطناعي وتحليل الفيديوهات المباشر
+                                   لتوفير تجربة مواقف ذكية وسلسة للمستخدمين. يهدف النظام إلى تسهيل
+                                   عملية ركن السيارات، وتقليل الازدحام، وزيادة كفاءة استغلال المساحات المتاحة<h1>
+                                   
+                                   <h1> 🔹 ماذا نقدم؟</h1>
+                                  
+                                   <h1>كشف ذكي للمواقف المتاحة: يستخدم الذكاء الاصطناعي لتحليل الفيديوهات 
+                                   الحية وتحديد أماكن الوقوف الشاغرة والمشغولة بدقة عالية<h1>
+
+
+                                   <p>
+                                   <h1>إدارة متقدمة للمواقف: يدعم النظام مواقف متعددة المواقع مثل 
+                                   الجامعات، المطارات، والمولات، مع تحديثات فورية لحالة المواقف</h1>
+                                   </p>
+
+
+                                  <h1> استخدام رؤية حاسوبية: يدمج تقنيات الذكاء الاصطناعي لتحليل الفيديوهات، والتعرف 
+                                   على السيارات، والتفاعل مع البيانات في الزمن الفعلي</h1>
+                                    </p>
+                                    
+                                    
+                              </p>
+
+                         </div>
+                    </div>
+               </div>
+               <div class="about-container2">
+
+                    <div class="about-left">
+                         <div>
+                              <h1>لماذا باركنتلي؟</h1>
+                              <h1> ✅ دقة عالية في التعرف على السيارات والمساحات المتاحة</h1>
+                              <h1> ✅ سهولة التكامل مع أنظمة المواقف الذكية والمدن الذكية</h1>
+                              <h1> ✅ توفير الوقت والجهد عبر أتمتة عملية البحث عن موقف شاغر</h1>
+                              <h1> ✅ تحسين تجربة المستخدم وتقليل الازدحام في الأماكن المزدحمة</h1>
+                              <h1> 🚀مع باركنتلي يمكنك جعل مواقف السيارات أكثر ذكاءً وسلاسة</h1>
+                              
+                              
+                              
+                              <p> 
+                                   </p>
+
+                         </div>
+                    </div>
+                    <div class="about-right">
+                         <img src="./images/sedan.png" alt="">
+                    </div>
+               </div>
+          </section>
+
+          <!--? About Section End -->
+          <!--? Contact US Section Start -->
+          <section id="ContactUs">
+               <div>
+                    <h1>تواصل معنا</h1>
+               </div>
+               <div id="contact-main">
+                    <div class="message-img">
+                         <img src="./images/message.webp" alt="">
+                    </div>
+                    <div id="contactForm">
+
+                         <form id="contactUsForm">
+                              <div class="input"><input title="Please enter your name" id='name' type="text"
+                                        placeholder="Enter your name 📛"></div>
+                              <div class="input"><input title="Please enter the email address" id='email' type="email"
+                                        placeholder="Enter your email 📧"></div>
+                              <div class="input"><input title="Please enter mobile number" id='mobNo' type=" tel"
+                                        placeholder="Enter your number ☎️"></div>
+                              <div class="input">
+                                   <textarea title="Please write you suggestion" name="" id="suggestion" cols="30"
+                                        rows=5" placeholder="Suggestion ✍️"></textarea>
+                                   </div>
+                              </form>
+                              <div class="input btn">
+                                   <div class="source">
+                                       
+                                             
+                                                 
+                                                      
+                                                  </button>
+                                             </a>
+                                        </div>
+                                        <div class="download" title="Click to Download the Source Code">
+                                             <a href="PabloParkingSourceCode.zip" download>
+                                                  
+                                             </a>
+                                        </div>
+                                   </div>
+                                   <div>
+                                        <button title="Send Message" onclick="SendMessage()">Send Message</button>
+                                   </div>
+                              </div>
+                         </div>
+     
+                    </div>
+               </section>
+          <!--? Contact US Section End -->
+
+
+        <!--
+
+<section id="investors">
+     <div>
+         <h1></h1>
+     </div>
+     <section id="investor-container">
+         <aside id="investor-left" class="investor-cards">
+             <div class="investor-image">
+                 <a href="" target="_blank"><img
+                         src="./images/Karan.jpg" alt=""></a>
+             </div>
+             <div class="investor-details">
+                 <div class="investor-about">
+                     <p>1</p>
+                     <div class="investors-link">
+                         <div>
+                             
+                         </div>
+                         <div>
+                             
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </aside>
+         <aside id="investor-mid" class="investor-cards">
+             <div class="investor-image">
+                 <a target="_blank"
+                    href="">
+                    <img src="./images/AtanuBhai.png" alt=""></a>
+             </div>
+             <div class="investor-details">
+                 <div class="investor-about">
+                     <p>2</p>
+                 </div>
+                 <div>
+                 </div>
+             </div>
+         </aside>
+         <aside id="investor-right" class="investor-cards">
+             <div class="investor-image">
+                 <a href="" target="_blank"><img
+                         src="./images/abhishekBhai.jpg" alt=""></a>
+             </div>
+             <div class="investor-details">
+                 <div class="investor-about">
+                     <p>3</p>
+                 </div>
+                 <div>
+                 </div>
+             </div>
+         </aside>
+     </section>
+ </section>
+ 
+ -->
+ 
+
+          <!-- ? footer start -->
+          <footer>
+               <div class="lower-row">
+                    <div class="copyright">
+                         © 2025 by Parkintli
+                    </div>
+                    <div>
+                        
+                    </div>
+               </div>
+          </footer>
+          <!-- ? footer end -->
+
+          <!--? Alert window -->
+          <div id="alert-box">
+               <div class="alert-cross">
+                    <img src="./images/close.png" alt="">
+               </div>
+               <div class="alert-message">
+                    <p>please enter valid details please enter valid details </p>
+               </div>
+               <div class="alert-line"></div>
+          </div>
+          <!--? Alert window -->
+          <script src="./scripts/index.js"></script>
+     </body>
+
+</html>
